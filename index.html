@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samar Singh - Portfolio</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0e27; color: #fff; overflow-x: hidden; }
+        
+        .mouse-trail { position: fixed; width: 10px; height: 10px; border: 2px solid #00d4ff; border-radius: 50%; pointer-events: none; z-index: 1000; }
+        
+        header { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10, 14, 39, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid #00d4ff; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; max-width: 1400px; margin: 0 auto; width: 100%; }
+        .logo { font-size: 28px; font-weight: 900; background: linear-gradient(45deg, #00d4ff, #0099ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { color: #fff; text-decoration: none; font-weight: 500; transition: color 0.3s; position: relative; }
+        nav a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: #00d4ff; transition: width 0.3s; }
+        nav a:hover::after { width: 100%; }
+        
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 50px 50px; text-align: center; position: relative; overflow: hidden; }
+        .hero-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(0, 153, 255, 0.1) 0%, transparent 50%); }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; animation: fadeInUp 1s ease-out; }
+        .hero h1 { font-size: 80px; font-weight: 900; margin-bottom: 20px; line-height: 1.1; }
+        .hero .highlight { background: linear-gradient(45deg, #00d4ff, #0099ff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 3s ease infinite; }
+        .hero p { font-size: 20px; color: #b0b8cc; margin-bottom: 40px; }
+        .cta-btn { display: inline-block; padding: 15px 40px; background: linear-gradient(45deg, #00d4ff, #0099ff); color: #000; font-weight: 700; border: none; cursor: pointer; border-radius: 50px; font-size: 16px; transition: transform 0.3s, box-shadow 0.3s; margin: 0 10px; }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5); }
+        
+        .about { padding: 120px 50px; max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-img { width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, #00d4ff, #0099ff); border-radius: 20px; position: relative; overflow: hidden; }
+        .about-img::before { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; border: 3px solid #0a0e27; border-radius: 15px; }
+        .about h2 { font-size: 50px; margin-bottom: 30px; }
+        .about-text { line-height: 1.8; color: #b0b8cc; font-size: 16px; }
+        .about-text p { margin-bottom: 20px; }
+        
+        .skills { padding: 120px 50px; background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 153, 255, 0.05)); }
+        .section-title { font-size: 50px; margin-bottom: 80px; text-align: center; }
+        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1400px; margin: 0 auto; }
+        .skill-card { background: rgba(0, 212, 255, 0.05); border: 2px solid #00d4ff; padding: 40px; border-radius: 15px; cursor: pointer; transition: all 0.3s; }
+        .skill-card:hover { background: rgba(0, 212, 255, 0.15); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3); }
+        .skill-card h3 { font-size: 24px; margin-bottom: 20px; }
+        .skill-card p { color: #b0b8cc; }
+        
+        .portfolio { padding: 120px 50px; max-width: 1400px; margin: 0 auto; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .portfolio-item { position: relative; height: 400px; border-radius: 15px; overflow: hidden; cursor: pointer; }
+        .portfolio-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+        .overlay-content { text-align: center; color: #fff; }
+        .overlay-content h3 { font-size: 28px; margin-bottom: 10px; }
+        .overlay-content p { color: #00d4ff; }
+        
+        .contact { padding: 120px 50px; text-align: center; background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 255, 0.1)); }
+        .contact h2 { font-size: 50px; margin-bottom: 30px; }
+        .contact p { font-size: 18px; color: #b0b8cc; margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .contact-btn { display: inline-block; padding: 15px 40px; margin: 10px; border: 2px solid #00d4ff; color: #00d4ff; text-decoration: none; border-radius: 50px; transition: all 0.3s; font-weight: 600; }
+        .contact-btn:hover { background: #00d4ff; color: #0a0e27; }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientShift { 0%, 100% { filter: hue-rotate(0deg); } 50% { filter: hue-rotate(10deg); } }
+        
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 20px; padding: 15px 20px; }
+            nav ul { flex-direction: column; gap: 15px; }
+            .hero h1 { font-size: 50px; }
+            .about { grid-template-columns: 1fr; padding: 80px 30px; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 35px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">SAMAR</div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#portfolio">Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>CREATIVE <span class="highlight">VISIONARY</span></h1>
+            <p>Filmmaker • Graphics Designer • Digital Storyteller</p>
+            <a href="#portfolio" class="contact-btn">View Work</a>
+            <a href="#contact" class="contact-btn">Get In Touch</a>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-img">
+            <img src="pfp.jpg" height="1000" width="700" align="center">
+        </div>
+        <div>
+            <h2>About Me</h2>
+            <div class="about-text">
+                <p>Hey! I'm Samar Singh, a 17-year-old filmmaker and graphic designer passionate about creating stunning visual content. I've worked with international clients in Canada for insurance companies and currently lead video editing at AuraReach Media.</p>
+                <p><strong>💼 Senior Video & Graphics Editor</strong> at AuraReach Media</p>
+                <p><strong>🎨 Graphics Designer</strong> for Hotwheel Trading</p>
+                <p><strong>🎬 Filmmaker</strong> specializing in cinematics and visual effects</p>
+                <p><strong>🌍 International Experience</strong> with North American clients</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills" id="skills">
+        <h2 class="section-title">My Expertise</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                
+                <h3>🎬 Video Editing</h3>
+                <p>Premiere Pro, After Effects, DaVinci Resolve - Cinematic editing and color grading</p>
+                
+            </div>
+            <div class="skill-card">
+                <h3>🎨 Graphics Design</h3>
+                <p>Photoshop, Illustrator, Figma - Bold designs and visual branding</p>
+
+            </div>
+            <div class="skill-card">
+                <h3>📹 Cinematography</h3>
+                <p>Motion graphics, VFX, Visual effects - Professional film production</p>
+            </div>
+            <div class="skill-card">
+                <h3>🎵 Music & Lysics</h3>
+                <p>Music & Lyrics making</p>
+            </div>
+            <div class="skill-card">
+                <h3>📜 Script Making</h3>
+                <p>Proffesional - Engaging Scripts</p>
+            </div>
+            <div class="skill-card">
+                <h3>🏞️ Exclusive Posters</h3>
+                <p>Exclusive - Engaging Posters</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #00d4ff, #0099ff); display: flex; align-items: center; justify-content: center; font-size: 100px;">🎬</div>
+                <div class="portfolio-overlay">
+                    <div class="overlay-content">
+                        <h3> Filmaking </h3>
+                        <p>Cinematic storytelling</p>
+                        <a href="filmmaking.html" class="contact-btn">CLICK</a>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #00d4ff, #009999); display: flex; align-items: center; justify-content: center; font-size: 100px;">🎨</div>
+                <div class="portfolio-overlay">
+                    <div class="overlay-content">
+                        <h3>Graphics Design</h3>
+                        <p>Bold & Creative</p>
+                        <a href="graphics.html" class="contact-btn">CLICK</a>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #0099ff, #006699); display: flex; align-items: center; justify-content: center; font-size: 100px;">🎥</div>
+                <div class="portfolio-overlay">
+                    <div class="overlay-content">
+                        <h3>AuraReach Media</h3>
+                        <p>Senior Editor</p>
+                        <a href="auraReach.html" class="contact-btn">CLICK</a>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #009999, #003366); display: flex; align-items: center; justify-content: center; font-size: 100px;">🏎️</div>
+                <div class="portfolio-overlay">
+                    <div class="overlay-content">
+                        <h3>Exclusive Designs</h3>
+                        <p>Design Lead</p>
+                        <a href="exclusiveDesign.html" class="contact-btn">CLICK</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Let's Create Magic</h2>
+        <p>Have a project in mind? Let's collaborate and bring your vision to life with stunning visuals and creative direction.</p>
+        <div>
+            <a href="mailto:vaxtrex.svp@gmail.com" class="contact-btn">📧 Email Me</a>
+            <a href="www.instagram.com/vaxtrex" class="contact-btn">📸 Instagram</a>
+            <a href="#" class="contact-btn">🎬 Portfolio</a>
+        </div>
+    </section>
+
+    <script>
+        // Mouse trail effect
+        document.addEventListener('mousemove', (e) => {
+            const trail = document.createElement('div');
+            trail.className = 'mouse-trail';
+            trail.style.left = e.clientX - 2 + 'px';
+            trail.style.top = e.clientY - 2 + 'px';
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 100);
+        });
+
+        // Smooth scroll
+        function scrollTo(selector) {
+            document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.borderBottomColor = 'rgba(0, 212, 255, 0.3)';
+            }
+        });
+
+        // Skill card counter animation
+        document.querySelectorAll('.skill-card').forEach((card, idx) => {
+            card.style.animation = `fadeInUp 0.8s ease-out ${idx * 0.2}s both`;
+        });
+    </script>
+</body>
+</html>
