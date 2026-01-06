@@ -218,12 +218,55 @@
             .service-card:hover::after {
                 opacity: 1;
             }
+            * {
+    cursor: none !important; /* Hide default cursor everywhere */
+}
+
+#cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--neon-matcha);
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 10000;
+    pointer-events: none;
+    transition: width 0.3s, height 0.3s;
+}
+
+#cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--neon-matcha);
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    transition: all 0.15s ease-out;
+    opacity: 0.5;
+}
+
+/* Cursor state when hovering over interactive elements */
+.cursor-hover {
+    width: 80px !important;
+    height: 80px !important;
+    background-color: rgba(190, 255, 0, 0.1);
+    border-color: var(--neon-matcha) !important;
+    opacity: 1 !important;
+}
         </style>
+        
 
     </style>
 </head>
 <body>
-
+     <div id="cursor-dot"></div>
+<div id="cursor-outline"></div>
     
     <section class="hero">
         <style>
@@ -308,7 +351,7 @@
             <div class="hero-image-container">
                 <div class="hero-decor" style="top: -20px; right: -20px; color: var(--neon-matcha); font-size: 3rem;">🌸</div>
                 
-                <img src="samar.webp" alt="Samar Singh" class="profile-img">
+                <img src="YOUR_IMAGE_URL_HERE" alt="Samar Singh" class="profile-img">
                 
                 <div style="position: absolute; width: 300px; height: 300px; background: var(--neon-matcha); filter: blur(150px); opacity: 0.1; z-index: -1;"></div>
             </div>
@@ -320,9 +363,8 @@
         </div>
         <div style="text-align: right;">
             <p style="opacity: 0.5;">SKILLS</p>
-            <p>Premiere Pro / After Effects / DaVinci</p>
-            <p>Figma / Photoshop / Illustrator</p>
-            <p>Scripting / Music / Cinematography</p>
+            <p>Davinci/Sony vegas pro/After effects/Canva</p>
+            
         </div>
     </section>
 
@@ -449,6 +491,169 @@
             </div>
         </div>
     </section>
+    <section class="section" id="reviews">
+        <h2 style="font-family: 'Syne'; font-size: 4rem; margin-bottom: 50px; text-transform: uppercase;">
+            Reviews <span style="color: var(--neon-matcha);">/</span>
+        </h2>
+        
+        <style>
+            .reviews-list {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .review-item {
+                background: #111;
+                border: 1px solid #222;
+                overflow: hidden;
+                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                cursor: pointer;
+            }
+
+            .review-item:hover {
+                border-color: var(--neon-matcha);
+                background: #151515;
+            }
+
+            /* The "Header" of the review (always visible) */
+            .review-header {
+                padding: 30px 40px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
+            }
+
+            .reviewer-meta h3 {
+                font-family: 'Syne';
+                font-size: 1.2rem;
+                color: var(--neon-matcha);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            .reviewer-meta p {
+                font-size: 0.7rem;
+                color: #555;
+                text-transform: uppercase;
+                margin-top: 5px;
+            }
+
+            .expand-icon {
+                font-family: 'Syne';
+                font-size: 1.5rem;
+                color: var(--neon-matcha);
+                transition: transform 0.4s;
+            }
+
+            /* The Content (hidden by default) */
+            .review-content {
+                max-height: 0;
+                padding: 0 40px;
+                opacity: 0;
+                transition: all 0.4s ease;
+            }
+
+            /* Active State */
+            .review-item.active {
+                border-color: var(--neon-matcha);
+                background: #151515;
+            }
+
+            .review-item.active .review-content {
+                max-height: 300px; /* Adjust based on content */
+                padding-bottom: 40px;
+                opacity: 1;
+            }
+
+            .review-item.active .expand-icon {
+                transform: rotate(45deg); /* Turns the + into an x */
+            }
+
+            .review-text {
+                font-size: 1.1rem;
+                line-height: 1.6;
+                color: var(--paper-white);
+                font-weight: 300;
+                font-style: italic;
+                border-top: 1px solid #222;
+                padding-top: 20px;
+            }
+
+            /* Floral Detail */
+            .review-flower {
+                position: absolute;
+                right: 80px;
+                font-size: 1.2rem;
+                opacity: 0.1;
+                transition: 0.3s;
+            }
+
+            .review-item:hover .review-flower {
+                opacity: 0.5;
+                transform: rotate(20deg);
+            }
+        </style>
+
+        <div class="reviews-list">
+            <div class="review-item" onclick="toggleReview(this)">
+                <div class="review-header">
+                    <div class="reviewer-meta">
+                        <h3>Alex Thompson</h3>
+                        <p>Creative Lead, Canada</p>
+                    </div>
+                    <span class="review-flower">🌸</span>
+                    <span class="expand-icon">+</span>
+                </div>
+                <div class="review-content">
+                    <p class="review-text">“Samar’s ability to take raw footage and turn it into a cinematic story is incredible. His sense of rhythm is unmatched. Every frame feels intentional.”</p>
+                </div>
+            </div>
+
+            <div class="review-item" onclick="toggleReview(this)">
+                <div class="review-header">
+                    <div class="reviewer-meta">
+                        <h3>Sarah El-Amin</h3>
+                        <p>Marketing Director, Dubai</p>
+                    </div>
+                    <span class="review-flower">🌸</span>
+                    <span class="expand-icon">+</span>
+                </div>
+                <div class="review-content">
+                    <p class="review-text">“The graphics he designed for our brand completely changed our digital presence. Modern, sharp, and professional. He understands the 'luxury' vibe perfectly.”</p>
+                </div>
+            </div>
+
+            <div class="review-item" onclick="toggleReview(this)">
+                <div class="review-header">
+                    <div class="reviewer-meta">
+                        <h3>Michael Chen</h3>
+                        <p>Founder, AuraReach Media</p>
+                    </div>
+                    <span class="review-flower">🌸</span>
+                    <span class="expand-icon">+</span>
+                </div>
+                <div class="review-content">
+                    <p class="review-text">“Leading the video team at AuraReach, Samar has proven he can handle international projects with ease and speed. A vital asset to our agency.”</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleReview(element) {
+            // Optional: Close other reviews when opening a new one
+            document.querySelectorAll('.review-item').forEach(item => {
+                if (item !== element) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // Toggle the clicked review
+            element.classList.toggle('active');
+        }
+    </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -478,20 +683,57 @@
             </p>
         </div>
     </section>
+    
 
     <script>
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
+    const dot = document.getElementById('cursor-dot');
+    const outline = document.getElementById('cursor-outline');
 
-        // Hover effect for cursor
-        document.querySelectorAll('a, .project-card').forEach(item => {
-            item.addEventListener('mouseenter', () => cursor.style.transform = 'scale(4)');
-            item.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+    // 1. CURSOR LOGIC
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        // The dot follows the mouse exactly
+        dot.style.left = `${posX}px`;
+        dot.style.top = `${posY}px`;
+
+        // The outline follows with a smooth "lag" animation
+        outline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 500, fill: "forwards" });
+    });
+
+    // Hover effect for interactive elements
+    // This adds a "magnetic" grow effect to your cards and links
+    const targets = document.querySelectorAll('a, .review-item, .service-box, .project-card, .contact-btn');
+
+    targets.forEach(target => {
+        target.addEventListener('mouseenter', () => {
+            outline.classList.add('cursor-hover');
+            dot.style.transform = 'translate(-50%, -50%) scale(1.5)';
         });
+        
+        target.addEventListener('mouseleave', () => {
+            outline.classList.remove('cursor-hover');
+            dot.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+    });
+
+    // 2. REVIEWS (ACCORDION) LOGIC
+    function toggleReview(element) {
+        // Optional: This line closes any other open review when you click a new one
+        document.querySelectorAll('.review-item').forEach(item => {
+            if (item !== element) {
+                item.classList.remove('active');
+            }
+        });
+        
+        // Toggle the active class on the clicked review
+        element.classList.toggle('active');
+    }
+</script>
     </script>
 </body>
 </html>
-
