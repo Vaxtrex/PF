@@ -6,6 +6,7 @@
     <title>Samar Singh | Creative Director</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <style>
+        
         :root {
             --neon-matcha: #BEFF00; /* Vibrant Lime/Matcha */
             --night-ink: #0D0D0D;   /* Deep Charcoal */
@@ -259,6 +260,43 @@
     border-color: var(--neon-matcha) !important;
     opacity: 1 !important;
 }
+/* ===== Falling Leaf Petals ===== */
+#leaves-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50; /* Behind cursor, above background */
+    overflow: hidden;
+}
+
+.leaf {
+    position: absolute;
+    top: -50px;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(
+        circle at 30% 30%,
+        #d6ff66,
+        var(--neon-matcha)
+    );
+    border-radius: 0 100% 0 100%;
+    opacity: 0.6;
+    animation: fall linear infinite;
+}
+
+/* Leaf falling animation */
+@keyframes fall {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+    100% {
+        transform: translateX(100px) translateY(110vh) rotate(360deg);
+    }
+}
+
         </style>
         
 
@@ -347,11 +385,16 @@
                     Crafting high-frequency visual stories at AuraReach Media.
                 </p>
             </div>
+            <div style="text-align: right;">
+            <p style="opacity: 0.5;">SKILLS</p>
+            <p>Davinci/Sony vegas pro/After effects/Canva</p>
+            
+        </div>
 
             <div class="hero-image-container">
                 <div class="hero-decor" style="top: -20px; right: -20px; color: var(--neon-matcha); font-size: 3rem;">🌸</div>
                 
-                <img src="samar.webp" alt="Samar Singh" class="profile-img">
+                <img src="samar.webp" alt="Samar Singh" class="profile-img" height="1080" width="1080">
                 
                 <div style="position: absolute; width: 300px; height: 300px; background: var(--neon-matcha); filter: blur(150px); opacity: 0.1; z-index: -1;"></div>
             </div>
@@ -361,11 +404,7 @@
         <div class="big-para">
             Hey! <span style="color: var(--neon-matcha)">I'm Samar Singh</span>, leading video at <span style="border-bottom: 2px solid var(--neon-matcha)">AuraReach Media</span>a 18-year-old filmmaker and graphic designer passionate about creating stunning visual content. I've worked with international clients in Canada, Dubai as well as with Indian Clients and currently lead video editing and graphics designer at AuraReach Media.
         </div>
-        <div style="text-align: right;">
-            <p style="opacity: 0.5;">SKILLS</p>
-            <p>Davinci/Sony vegas pro/After effects/Canva</p>
-            
-        </div>
+        
     </section>
 
     <section class="section">
@@ -735,6 +774,41 @@
     }
 </script>
     </script>
+    <!-- Falling Leaves Container -->
+<div id="leaves-container"></div>
+<script>
+const leafContainer = document.getElementById("leaves-container");
+const LEAF_COUNT = 25; // Adjust density
+
+function createLeaf() {
+    const leaf = document.createElement("div");
+    leaf.classList.add("leaf");
+
+    const size = Math.random() * 12 + 10;
+    leaf.style.width = `${size}px`;
+    leaf.style.height = `${size}px`;
+
+    leaf.style.left = `${Math.random() * window.innerWidth}px`;
+    leaf.style.animationDuration = `${Math.random() * 10 + 8}s`;
+    leaf.style.animationDelay = `${Math.random() * 1}s`;
+    leaf.style.opacity = Math.random() * 0.4 + 0.3;
+
+    leafContainer.appendChild(leaf);
+
+    // Remove leaf after animation to prevent memory leaks
+    setTimeout(() => {
+        leaf.remove();
+    }, 20000);
+}
+
+// Continuous generation
+setInterval(() => {
+    if (leafContainer.children.length < LEAF_COUNT) {
+        createLeaf();
+    }
+}, 500);
+</script>
+
+
 </body>
 </html>
-
