@@ -296,6 +296,46 @@
         transform: translateX(100px) translateY(110vh) rotate(360deg);
     }
 }
+.about-clean {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+/* Intro Line */
+.about-intro {
+    font-family: 'Syne';
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.about-intro .accent {
+    color: var(--neon-matcha);
+}
+
+.about-intro .highlight {
+    border-bottom: 2px solid var(--neon-matcha);
+}
+
+/* Description */
+.about-desc p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    opacity: 0.65;
+    margin-bottom: 14px;
+}
+
+.about-desc span {
+    color: var(--paper-white);
+    opacity: 0.9;
+}
+
+.about-desc .highlight {
+    color: var(--neon-matcha);
+    opacity: 1;
+}
 
         </style>
         
@@ -385,12 +425,7 @@
                     Crafting high-frequency visual stories at AuraReach Media.
                 </p>
             </div>
-            <div style="text-align: right;">
-            <p style="opacity: 0.5;">SKILLS</p>
-            <p>Davinci/Sony vegas pro/After effects/Canva</p>
             
-        </div>
-
             <div class="hero-image-container">
                 <div class="hero-decor" style="top: -20px; right: -20px; color: var(--neon-matcha); font-size: 3rem;">🌸</div>
                 
@@ -399,15 +434,32 @@
                 <div style="position: absolute; width: 300px; height: 300px; background: var(--neon-matcha); filter: blur(150px); opacity: 0.1; z-index: -1;"></div>
             </div>
         </div>
-    </section>
-    <section class="section about-grid">
-        <div class="big-para">
-            Hey! <span style="color: var(--neon-matcha)">I'm Samar Singh</span>, leading video at <span style="border-bottom: 2px solid var(--neon-matcha)">AuraReach Media</span>
+        <div style="text-align: right;">
+            <p style="opacity: 0.5;">SKILLS</p>
+            <p>Davinci/Sony vegas pro/After effects/Canva</p>
+            
         </div>
-        <div class="big-para">a 18-year-old filmmaker and graphic designer passionate about creating stunning visual content. </div>
-        <div class="big-para">I've worked with international clients in Canada, </div>
-        <div class="big-para">Dubai as well as with Indian Clients and currently lead video editing and graphics designer at AuraReach Media.</div></div>
+
     </section>
+    <section class="section about-clean">
+    
+    <div class="about-desc">
+        <span class="accent">Hey, I’m Samar Singh</span><br>
+        Leading Video at <span class="highlight">AuraReach Media</span>
+        <p>
+            An 18-year-old filmmaker and graphic designer focused on crafting
+            high-impact visual stories.
+        </p>
+        <p>
+            I’ve collaborated with international clients across
+            <span>Canada</span> and <span>Dubai</span>, alongside multiple Indian brands.
+        </p>
+        <p>
+            Currently heading video editing and graphic design at
+            <span class="highlight">AuraReach Media</span>.
+        </p>
+    </div>
+</section>
 
     <section class="section">
         <h2 style="font-family: 'Syne'; font-size: 4rem; margin-bottom: 50px;">Our Agency <small style="font-size: 1rem; vertical-align: middle; opacity: 0.5;">/ SELECTED WORKS</small></h2>
@@ -814,4 +866,3 @@ setInterval(() => {
 
 </body>
 </html>
-
